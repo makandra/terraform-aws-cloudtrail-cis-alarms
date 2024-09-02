@@ -1,0 +1,15 @@
+name: TFLint
+on:
+  pull_request:
+
+jobs:
+  tflint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        path:
+          - .
+    steps:
+    - uses: makandra/github-actions/tflint@main
+      with:
+        path: ${{ matrix.path }}
