@@ -1,42 +1,39 @@
-# Terraform module template
+# Terraform AWS CloudTrail CIS Alerts
 
-This is a template for terraform modules. It contains the required CI configuration and `.gitignore`.
+<!-- BEGIN_TF_DOCS -->
+## Requirements
 
-# Contents
+No requirements.
 
-## package.json
+## Providers
 
-The `package.json` is required for the [semantic-release](https://semantic-release.gitbook.io/semantic-release/). This is controlled via a Github Actions workflow.
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.65.0 |
 
-## pre-commit-config.yaml
+## Modules
 
-We rely on [pre-commit](https://pre-commit.com/) hooks to ensure the good code quality. This is also checked by a CI pipeline but recommended to use locally. It's also responsible for creating [terraform-docs](https://terraform-docs.io/).
+No modules.
 
-## .github/workflows
+## Resources
 
-We have several default workflows prepared.
+| Name | Type |
+|------|------|
+| [aws_cloudwatch_log_metric_filter.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_metric_filter) | resource |
+| [aws_cloudwatch_metric_alarm.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm) | resource |
 
-### checkov
+## Inputs
 
-[checkov](https://www.checkov.io/) scans the terraform manifests for common misconfigurations. By default the root of the repository is scanned but if you have a repo with submodules (like for e.g. [makandra/terraform-aws-modules](https://github.com/makandra/terraform-aws-modules) you may want to alter the path of the GitHub action.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_alarm_action_arns"></a> [alarm\_action\_arns](#input\_alarm\_action\_arns) | list of arns for alarm actions | `list(any)` | n/a | yes |
+| <a name="input_alarm_namespace"></a> [alarm\_namespace](#input\_alarm\_namespace) | Namespace where the alarms belong to | `string` | `"CIS-Benchmark"` | no |
+| <a name="input_log_group_name"></a> [log\_group\_name](#input\_log\_group\_name) | The log group name where the CloudTrail logs are stored | `string` | n/a | yes |
+| <a name="input_rule_overrides"></a> [rule\_overrides](#input\_rule\_overrides) | override rule settings | <pre>map(object({<br>    pattern     = string<br>    description = string<br>  }))</pre> | `{}` | no |
 
-### conventional-commits
+## Outputs
 
-We want to enforce [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) to ensure our `semantic-release` works correctly.
-
-### precommit
-
-We want to ensure that all our rules in the `pre-commit` configuration are applied.
-
-### semantic-release
-
-Whenever new commits are merged into the `main` branch we want a new release to be created.
-
-### tflint
-
-Terraform linter for finding possible errors, old syntax, unused declarations etc. Also it enforces best practices. See [tflint](https://github.com/terraform-linters/tflint).
-By default the root of the respository is scanned but if you have a repo with submodules (like for e.g. [makandra/terraform-aws-modules](https://github.com/makandra/terraform-aws-modules) you should add every submodule to the workflow matrix.
-
-# Recommended Repo configuration
-
-We recommend protecting the `main` branch and to allow new code pushes only via Pull Requests. This way it's ensured that all tests pass before a new release is pushed.
+| Name | Description |
+|------|-------------|
+| <a name="output_alarm_arns"></a> [alarm\_arns](#output\_alarm\_arns) | n/a |
+<!-- END_TF_DOCS -->
