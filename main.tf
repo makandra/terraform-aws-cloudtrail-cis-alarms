@@ -25,7 +25,7 @@ resource "aws_cloudwatch_metric_alarm" "this" {
   evaluation_periods        = "1"
   metric_name               = aws_cloudwatch_log_metric_filter.this[each.key].id
   namespace                 = var.alarm_namespace
-  period                    = each.value.period
+  period                    = try(each.value.period, 300)
   statistic                 = "Sum"
   threshold                 = "1"
   alarm_description         = each.value.description
