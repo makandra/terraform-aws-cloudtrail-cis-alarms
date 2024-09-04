@@ -1,5 +1,40 @@
 # Terraform AWS CloudTrail CIS Alerts
 
+This module contains alert definitions to comply with the [CIS AWS Foundation Benchmark]([CIS AWS Foundations Benchmark - AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/cis-aws-foundations-benchmark.html).
+
+## Usage
+
+### Examples
+
+```hcl
+module "cis_alarms" {
+  source = "makandra/aws-cloudtrail-cis-alarms"
+
+  alarm_action_arns = module.sns_topic.topic_arn
+  log_group_name = "cloud-trail-logs"
+}
+```
+
+Further examples can be found in the `examples` directory.
+
+### Overriding Rules
+
+You can add additional rules or overwrite existing rules by passing a map of rules via `rule_overrides` parameter. There is no deep merge. When adding an object with a key that exist in `rules.tf`, the whole rule is reset with the parameters set in `rule_overrides`.
+
+```hcl
+module "cis_alarms" {
+  source = "../../"
+
+  rule_overrides = {
+    FancyRule = {
+      pattern     = "{$.errorCode = \"Fancy\"}"
+      description = "My fancy rule"
+      period      = 300
+    }
+  }
+}
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
