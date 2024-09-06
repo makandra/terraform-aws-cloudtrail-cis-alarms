@@ -1,6 +1,6 @@
 # Terraform AWS CloudTrail CIS Alerts
 
-This module contains alert definitions to comply with the [CIS AWS Foundation Benchmark]([CIS AWS Foundations Benchmark - AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/cis-aws-foundations-benchmark.html).
+This module contains alert definitions to comply with the [CIS AWS Foundations Benchmark - AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/cis-aws-foundations-benchmark.html).
 
 ## Usage
 
